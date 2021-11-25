@@ -1,0 +1,28 @@
+﻿<Window x:Class="FerreteriaMVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:FerreteriaMVVM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="15" Content="Bienvenida" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Bienvenida" />
+            <Button Grid.Column="1" Margin="15" Content="Proveedores" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Proveedores"/>
+            <Button Grid.Column="2" Margin="15" Content="Productos" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Productos"/>
+        
+        </Grid>
+
+        <ContentControl Content="{Binding SelectedViewModel}" Height="350"/>
+
+
+    </StackPanel>
+    
+</Window>
