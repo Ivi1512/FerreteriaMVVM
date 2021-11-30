@@ -4,9 +4,99 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FerreteriaMVVM.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Background="Aquamarine">
+             d:DesignHeight="500" d:DesignWidth="1200">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ProveedoresCommand}" CommandParameter="cargarLista"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid Background="Aquamarine">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="750"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
+            <ListView x:Name="proveedoresListView" ItemsSource="{Binding ListaProveedores}">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ProveedoresCommand}" 
+                                               CommandParameter="{Binding ElementName=proveedoresListView, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="CIF" DisplayMemberBinding="{Binding Path=_id}"/>
+                        <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Path=Nombre}"/>
+                        <GridViewColumn Header="Población" DisplayMemberBinding="{Binding Path=Poblacion}"/>
+                        <GridViewColumn Header="Teléfono" DisplayMemberBinding="{Binding Path=Telefono}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
             
-    </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+
+            <materialDesign:Card Padding="20" Margin="15">
+                <StackPanel>
+                    <TextBlock Text="DATOS ESTUDIANTE" HorizontalAlignment="Center" Margin="15" FontSize="20" FontWeight="DemiBold"/>
+
+
+                    <TextBox materialDesign:HintAssist.Hint="CIF:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            VerticalAlignment="Center" Width="200"
+                            FontSize="16"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            Text="{Binding CurrentProveedor._id, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="False"/>
+
+                    <TextBox materialDesign:HintAssist.Hint="Nombre:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            VerticalAlignment="Center" Width="200"
+                            FontSize="16"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            Text="{Binding CurrentProveedor.Nombre, UpdateSourceTrigger=PropertyChanged}"
+                            />
+
+                    <TextBox materialDesign:HintAssist.Hint="Población:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            VerticalAlignment="Center" Width="200"
+                            FontSize="16"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            Text="{Binding CurrentProveedor.Poblacion, UpdateSourceTrigger=PropertyChanged}"
+                            />
+
+                    <TextBox materialDesign:HintAssist.Hint="Telefono:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            VerticalAlignment="Center" Width="200"
+                            FontSize="16"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            Text="{Binding CurrentProveedor.Telefono, UpdateSourceTrigger=PropertyChanged}"
+                            />
+
+                    <TextBlock x:Name="txtWarning" Text="{Binding TXWarning}" TextAlignment="Center" Margin="0,20,0,0" FontWeight="Bold" Foreground="Red"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,0">
+                        <Button x:Name="btnEditar" Content="Editar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="editarHabilitado"/>
+
+                        <Button x:Name="btnGuardar" Content="Guardar" Width="120" Margin="5" Command="{Binding GuardarEstudianteCommand}" CommandParameter="{Binding ElementName=vistaEstudiantes}"/>
+                        <Button x:Name="btnCancelar" Content="Cancelar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="cancelarEditar"/>
+                    </StackPanel>
+                </StackPanel>
+
+
+            </materialDesign:Card>
+
+        </StackPanel>
+    </Grid>
 </UserControl>
