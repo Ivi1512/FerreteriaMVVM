@@ -69,11 +69,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\ProductosCommand.cs" />
     <Compile Include="Commands\ProveedoresCommand.cs" />
     <Compile Include="Commands\UpdateViewCommand.cs" />
     <Compile Include="Models\ProductosModel.cs" />
     <Compile Include="Models\ProveedoresModel.cs" />
-    <Compile Include="Services\ProveedoresDBHandler.cs" />
+    <Compile Include="Services\DBHandler.cs" />
     <Compile Include="ViewModels\BienvenidaViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ProductosViewModel.cs" />

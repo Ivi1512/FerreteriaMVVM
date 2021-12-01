@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FerreteriaMVVM.Services
 {
-    class ProveedoresDBHandler
+    class DBHandler
     {
         public static ObservableCollection<ProveedoresModel> listaProveedores { set; get; }
 
@@ -22,6 +22,18 @@ namespace FerreteriaMVVM.Services
             listaProveedores.Add(new ProveedoresModel("id4", "dff", "fsdfds", "459688"));
 
             return listaProveedores;
+        }
+
+
+
+        public static ObservableCollection<ProductosModel> listaProductos { set; get; }
+        public static ObservableCollection<ProductosModel> GetProductos()
+        {
+            listaProductos = new ObservableCollection<ProductosModel>();
+
+            listaProductos.Add(new ProductosModel("id1", listaProveedores, "fad", "fsdf", "sadad", "DASD", "sdfsdf", 56.2, DateTime.Today, 5));
+
+            return listaProductos;
         }
     }
 }

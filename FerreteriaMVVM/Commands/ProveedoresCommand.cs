@@ -26,7 +26,7 @@ namespace FerreteriaMVVM.Commands
                 string accion = parameter.ToString();
                 if (accion.Equals("cargarLista"))
                 {
-                    proveedoresViewModel.ListaProveedores = ProveedoresDBHandler.GetProveedores();
+                    proveedoresViewModel.ListaProveedores = DBHandler.GetProveedores();
                 }
             }
             else

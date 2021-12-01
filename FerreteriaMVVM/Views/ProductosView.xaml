@@ -4,8 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FerreteriaMVVM.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ProductosCommand}" CommandParameter="cargarLista"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <StackPanel Background="DarkKhaki">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -13,16 +21,35 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition />
+                <RowDefinition  Height="50"/>
             </Grid.RowDefinitions>
 
-            <StackPanel>
-                
-            </StackPanel>
-            
-  
+            <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
+                <ListView x:Name="productosListView" ItemsSource="{Binding ListaProductos}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ProductosCommand}" 
+                                               CommandParameter="{Binding ElementName=productosListView, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Código de barras" DisplayMemberBinding="{Binding Path=_id}"/>
+                            <GridViewColumn Header="Referencia" DisplayMemberBinding="{Binding Path=Referencia}"/>
+                            <GridViewColumn Header="Descripción" DisplayMemberBinding="{Binding Path=Descripcion}"/>
+                            <GridViewColumn Header="Precio" DisplayMemberBinding="{Binding Path=Precio}"/>
+                            <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Path=Stock}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </StackPanel> 
+
+
         </Grid>
     </StackPanel>
 </UserControl>

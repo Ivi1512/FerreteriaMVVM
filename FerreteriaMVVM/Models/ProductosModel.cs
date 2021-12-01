@@ -8,13 +8,18 @@ using System.Threading.Tasks;
 
 namespace FerreteriaMVVM.Models
 {
-    class ProductosModel : INotifyPropertyChanged
+    class ProductosModel : INotifyPropertyChanged, ICloneable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
 
         private string id { set; get; }
@@ -28,8 +33,8 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private ObservableCollection<string> proveedor { set; get; }
-        public ObservableCollection<string> Proveedor
+        private ObservableCollection<ProveedoresModel> proveedor { set; get; }
+        public ObservableCollection<ProveedoresModel> Proveedor
         {
             get { return proveedor; }
             set
@@ -127,5 +132,23 @@ namespace FerreteriaMVVM.Models
             }
         }
 
+        public ProductosModel()
+        {
+
+        }
+
+        public ProductosModel(string id, ObservableCollection<ProveedoresModel> proveedor, string categoria, string marca, string material, string referencia, string descripcion, double precio, DateTime fechaEntrada, int stock)
+        {
+            this.id = id;
+            this.proveedor = proveedor;
+            this.categoria = categoria;
+            this.marca = marca;
+            this.material = material;
+            this.referencia = referencia;
+            this.descripcion = descripcion;
+            this.precio = precio;
+            this.fechaEntrada = fechaEntrada;
+            this.stock = stock;
+        }
     }
 }
