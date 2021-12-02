@@ -1,4 +1,5 @@
-﻿using FerreteriaMVVM.Services;
+﻿using FerreteriaMVVM.Models;
+using FerreteriaMVVM.Services;
 using FerreteriaMVVM.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,17 @@ namespace FerreteriaMVVM.Commands
             if(parameter is string)
             {
                 string hola = parameter.ToString();
-                if (hola.Equals("cargarLista")) ;
+                if (hola.Equals("cargarLista"))
                 {
                     productosViewModel.ListaProductos = DBHandler.GetProductos();
                 }
 
+            }
+            else
+            {
+                ProductosModel producto = (ProductosModel)parameter;
+                productosViewModel.CurrentProducto = (ProductosModel)producto.Clone();
+                productosViewModel.SelectedProducto = (ProductosModel)producto.Clone();
             }
 
         }

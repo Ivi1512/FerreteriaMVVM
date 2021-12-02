@@ -33,8 +33,19 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private ObservableCollection<ProveedoresModel> proveedor { set; get; }
-        public ObservableCollection<ProveedoresModel> Proveedor
+        private ProveedoresModel proveedores { set; get; }
+        public ProveedoresModel Proveedores
+        {
+            get { return proveedores; }
+            set
+            {
+                proveedores = value;
+                OnPropertyChanged(nameof(Proveedores));
+            }
+        }
+
+        private string proveedor { set; get; }
+        public string Proveedor
         {
             get { return proveedor; }
             set
@@ -134,21 +145,21 @@ namespace FerreteriaMVVM.Models
 
         public ProductosModel()
         {
-
+            proveedores = new ProveedoresModel();
         }
 
-        public ProductosModel(string id, ObservableCollection<ProveedoresModel> proveedor, string categoria, string marca, string material, string referencia, string descripcion, double precio, DateTime fechaEntrada, int stock)
-        {
-            this.id = id;
-            this.proveedor = proveedor;
-            this.categoria = categoria;
-            this.marca = marca;
-            this.material = material;
-            this.referencia = referencia;
-            this.descripcion = descripcion;
-            this.precio = precio;
-            this.fechaEntrada = fechaEntrada;
-            this.stock = stock;
-        }
+        //public ProductosModel(string id, string proveedor, string categoria, string marca, string material, string referencia, string descripcion, double precio, DateTime fechaEntrada, int stock)
+        //{
+        //    this.id = id;
+        //    this.proveedor = proveedor;
+        //    this.categoria = categoria;
+        //    this.marca = marca;
+        //    this.material = material;
+        //    this.referencia = referencia;
+        //    this.descripcion = descripcion;
+        //    this.precio = precio;
+        //    this.fechaEntrada = fechaEntrada;
+        //    this.stock = stock;
+        //}
     }
 }
