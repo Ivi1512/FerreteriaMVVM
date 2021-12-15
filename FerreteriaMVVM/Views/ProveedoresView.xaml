@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:FerreteriaMVVM.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             x:Name="vistaProveedores"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="1200">
 
@@ -28,7 +29,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
-            <ListView x:Name="proveedoresListView" ItemsSource="{Binding ListaProveedores}">
+            <ListView x:Name="proveedoresListView" ItemsSource="{Binding ListaProveedores}" SelectionChanged="proveedoresListView_SelectionChanged">
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -53,21 +54,23 @@
 
             <materialDesign:Card Padding="20" Margin="15">
                 <StackPanel>
-                    <TextBlock Text="DATOS ESTUDIANTE" HorizontalAlignment="Center" Margin="15" FontSize="20" FontWeight="DemiBold"/>
+                    <TextBlock Text="DATOS PROVEEDORES" HorizontalAlignment="Center" Margin="15" FontSize="20" FontWeight="DemiBold"/>
 
 
-                    <TextBox materialDesign:HintAssist.Hint="CIF:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    <TextBox x:Name="edt_cif"
+                            materialDesign:HintAssist.Hint="CIF:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             VerticalAlignment="Center" Width="200"
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             Text="{Binding CurrentProveedor._id, UpdateSourceTrigger=PropertyChanged}"
-                            IsEnabled="False"/>
+                            IsEnabled="{Binding ElementName=vistaProveedores, Path=EditarActivado}"/>
 
                     <TextBox materialDesign:HintAssist.Hint="Nombre:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             VerticalAlignment="Center" Width="200"
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             Text="{Binding CurrentProveedor.Nombre, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=vistaProveedores, Path=EditarActivado}"
                             />
 
                     <TextBox materialDesign:HintAssist.Hint="Población:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
@@ -75,6 +78,7 @@
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             Text="{Binding CurrentProveedor.Poblacion, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=vistaProveedores, Path=EditarActivado}"
                             />
 
                     <TextBox materialDesign:HintAssist.Hint="Telefono:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
@@ -82,15 +86,17 @@
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             Text="{Binding CurrentProveedor.Telefono, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=vistaProveedores, Path=EditarActivado}"
                             />
 
                     <TextBlock x:Name="txtWarning" Text="{Binding TXWarning}" TextAlignment="Center" Margin="0,20,0,0" FontWeight="Bold" Foreground="Red"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,0">
-                        <Button x:Name="btnEditar" Content="Editar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="editarHabilitado"/>
-
-                        <Button x:Name="btnGuardar" Content="Guardar" Width="120" Margin="5" Command="{Binding GuardarEstudianteCommand}" CommandParameter="{Binding ElementName=vistaEstudiantes}"/>
-                        <Button x:Name="btnCancelar" Content="Cancelar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="cancelarEditar"/>
+                        <Button x:Name="btnEditar" Content="Editar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="editarHabilitado" Click="btnEditar_Click"/>
+                        <Button x:Name="btnAnadir" Content="Añadir" Width="120" Margin="5" Command="{Binding CrearProveedorCommand}" CommandParameter="{Binding ElementName=vistaProveedores}" Click="btnAnadir_Click"/>
+                        <Button x:Name="btnCancelar" Content="Cancelar" Width="120" Margin="5" Click="btnCancelar_Click"/>
+                        <Button x:Name="btnConfirmar" Content="Confirmar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="cancelarEditar" Click="btnConfirmar_Click"/>
+                        <Button x:Name="btnAnadirNuevo" Content="Añadir Nuevo" Width="120" Margin="5" Command="{Binding LimpiarFormularioCommand}" CommandParameter="{Binding ElementName=vistaProveedores}"/>
                     </StackPanel>
                 </StackPanel>
 

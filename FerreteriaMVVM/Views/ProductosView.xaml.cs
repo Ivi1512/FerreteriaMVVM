@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,95 @@ namespace FerreteriaMVVM.Views
     /// <summary>
     /// Lógica de interacción para ProductosView.xaml
     /// </summary>
-    public partial class ProductosView : UserControl
+    public partial class ProductosView : UserControl, INotifyPropertyChanged
     {
+        
+        protected void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+       
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        private bool editarActivado;
+
+        public bool EditarActivado
+        {
+            get { return editarActivado; }
+            set
+            {
+                editarActivado = value;
+                OnPropertyChanged(nameof(EditarActivado));
+            }
+        }
+
+        private void productosListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            E01MostrarProducto();
+        }
+        
+
+        private void btnEditar_Click(object sender, RoutedEventArgs e)
+        {
+            E02EditarProducto();
+            edt_odigo_barras.IsEnabled = false;
+        }
+        private void btnAnadir_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            E01MostrarProducto();
+        }
+
+
+        private void btnConfirmar_Click(object sender, RoutedEventArgs e)
+        {
+            E01MostrarProducto();
+            edt_odigo_barras.IsEnabled = false;
+        }
+
+        public void E00EstadoInicial()
+        {
+            btnCancelar.Visibility = Visibility.Collapsed;
+            btnEditar.Visibility = Visibility.Collapsed;
+            btnAnadir.Visibility = Visibility.Visible;
+            btnConfirmar.Visibility = Visibility.Collapsed;
+            btnAnadirNuevo.Visibility = Visibility.Collapsed;
+
+            EditarActivado = true;
+        }
+
+        public void E01MostrarProducto()
+        {
+            btnCancelar.Visibility = Visibility.Collapsed;
+            btnEditar.Visibility = Visibility.Visible;
+            btnAnadir.Visibility = Visibility.Collapsed;
+            btnConfirmar.Visibility = Visibility.Collapsed;
+            btnAnadirNuevo.Visibility = Visibility.Visible;
+            EditarActivado = false;
+        }
+
+        public void E02EditarProducto()
+        {
+            btnCancelar.Visibility = Visibility.Visible;
+            btnEditar.Visibility = Visibility.Collapsed;
+            btnAnadir.Visibility = Visibility.Collapsed;
+            btnConfirmar.Visibility = Visibility.Visible;
+            btnAnadirNuevo.Visibility = Visibility.Collapsed;
+            EditarActivado = true;
+        }
+
+
         public ProductosView()
         {
             InitializeComponent();
+            E00EstadoInicial();
         }
+
+        
     }
 }

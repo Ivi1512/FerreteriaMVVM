@@ -33,9 +33,12 @@ namespace FerreteriaMVVM.Commands
             }
             else
             {
-                ProductosModel producto = (ProductosModel)parameter;
-                productosViewModel.CurrentProducto = (ProductosModel)producto.Clone();
-                productosViewModel.SelectedProducto = (ProductosModel)producto.Clone();
+                if(parameter != null)
+                {
+                    ProductosModel producto = (ProductosModel)parameter;
+                    productosViewModel.CurrentProducto = (ProductosModel)producto.Clone();
+                    productosViewModel.SelectedProducto = (ProductosModel)producto.Clone();
+                }
             }
 
         }

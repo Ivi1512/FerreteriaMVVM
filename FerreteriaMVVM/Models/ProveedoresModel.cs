@@ -34,6 +34,12 @@ namespace FerreteriaMVVM.Models
             }
         }
 
+        public override string ToString()
+        {
+            return _id;
+        }
+
+
         private string nombre { set; get; }
         public string Nombre
         {

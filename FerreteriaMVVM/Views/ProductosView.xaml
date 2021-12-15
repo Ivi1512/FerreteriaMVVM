@@ -29,7 +29,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
-                <ListView x:Name="productosListView" ItemsSource="{Binding ListaProductos}">
+                <ListView x:Name="productosListView" ItemsSource="{Binding ListaProductos}" SelectionChanged="productosListView_SelectionChanged">
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
@@ -43,7 +43,7 @@
                             <GridViewColumn Header="Código de barras" DisplayMemberBinding="{Binding Path=_id}"/>
                             <GridViewColumn Header="Referencia" DisplayMemberBinding="{Binding Path=Referencia}"/>
                             <GridViewColumn Header="Descripción" DisplayMemberBinding="{Binding Path=Descripcion}"/>
-                            <GridViewColumn Header="Proveedor" DisplayMemberBinding="{Binding Path=Proveedor}"/>
+                            <GridViewColumn Header="Proveedor" DisplayMemberBinding="{Binding Path=Proveedores.Nombre}"/>
                             <GridViewColumn Header="Precio" DisplayMemberBinding="{Binding Path=Precio}"/>
                             <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Path=Stock}"/>
                         </GridView>
@@ -70,58 +70,66 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        
 
-                            <TextBox materialDesign:HintAssist.Hint="Código de barras:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+
+                            <TextBox x:Name="edt_odigo_barras"
+                            materialDesign:HintAssist.Hint="Código de barras:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             VerticalAlignment="Center" Width="200"
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             Text="{Binding CurrentProducto._id, UpdateSourceTrigger=PropertyChanged}"
-                            IsEnabled="False"/>
+                            IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
 
-                            <ComboBox Grid.Row="1" HorizontalAlignment="Center" ItemsSource="{Binding listaProveedores}" Text="{Binding CurrentProducto.Proveedor}" Width="200" materialDesign:HintAssist.Hint="Proveedor" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="46" VerticalAlignment="Top" />
-                            <ComboBox Grid.Row="2" HorizontalAlignment="Center" ItemsSource="{Binding listaCategorias}" Text="{Binding CurrentProducto.Categoria}" Width="200" materialDesign:HintAssist.Hint="Categoría" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="46" VerticalAlignment="Top" />
-                            <ComboBox Grid.Row="3" HorizontalAlignment="Center" ItemsSource="{Binding listaMarcas}" Text="{Binding CurrentProducto.Marca}" Width="200" materialDesign:HintAssist.Hint="Marca" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="46" VerticalAlignment="Top" />
-                            <ComboBox Grid.Row="4" HorizontalAlignment="Center" ItemsSource="{Binding listaMateriales}" Text="{Binding CurrentProducto.Material}" Width="200" materialDesign:HintAssist.Hint="Material" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="46" VerticalAlignment="Top" />
+                            <ComboBox x:Name="combo" Grid.Row="1" HorizontalAlignment="Center" ItemsSource="{Binding ListaProveedores}" Text="{Binding CurrentProducto.Proveedores._id}" Width="200" materialDesign:HintAssist.Hint="Proveedor" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="46" VerticalAlignment="Top" IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
+                            <ComboBox Grid.Row="2" HorizontalAlignment="Center" ItemsSource="{Binding listaCategorias}" Text="{Binding CurrentProducto.Categoria}" Width="200" materialDesign:HintAssist.Hint="Categoría" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="46" VerticalAlignment="Top" IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
+                            <ComboBox Grid.Row="3" HorizontalAlignment="Center" ItemsSource="{Binding listaMarcas}" Text="{Binding CurrentProducto.Marca}" Width="200" materialDesign:HintAssist.Hint="Marca" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="46" VerticalAlignment="Top" IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
+                            <ComboBox Grid.Row="4" HorizontalAlignment="Center" ItemsSource="{Binding listaMateriales}" Text="{Binding CurrentProducto.Material}" Width="200" materialDesign:HintAssist.Hint="Material" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="46" VerticalAlignment="Top" IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
 
                             <TextBox Grid.Row="5" materialDesign:HintAssist.Hint="Referencia:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             VerticalAlignment="Center" Width="200"
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
-                            Text="{Binding CurrentProducto.Referencia, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding CurrentProducto.Referencia, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
 
                             <TextBox Grid.Row="6" materialDesign:HintAssist.Hint="Descripción:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             VerticalAlignment="Center" Width="200"
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
-                            Text="{Binding CurrentProducto.Descripcion, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding CurrentProducto.Descripcion, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
 
                             <TextBox Grid.Row="7" materialDesign:HintAssist.Hint="Precio:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             VerticalAlignment="Center" Width="200"
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
-                            Text="{Binding CurrentProducto.Precio, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding CurrentProducto.Precio, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
 
                             <DatePicker x:Name="datePickerFecha" Grid.Row="8"
                                 Margin="10" Width="200" HorizontalContentAlignment="Left" 
                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                                 materialDesign:HintAssist.Hint="Fecha de Entrada:"
                                 FontSize="16"
-                                SelectedDate="{Binding CurrentProducto.FechaEntrada, StringFormat=dd/MM/yyyy}"/>
+                                SelectedDate="{Binding CurrentProducto.FechaEntrada, StringFormat=dd/MM/yyyy}"
+                                IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
 
                             <TextBox Grid.Row="9" materialDesign:HintAssist.Hint="Stock:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             VerticalAlignment="Center" Width="200"
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
-                            Text="{Binding CurrentProducto.Stock, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding CurrentProducto.Stock, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
                         </Grid>
                     <TextBlock x:Name="txtWarning" Text="{Binding TXWarning}" TextAlignment="Center" Margin="0,20,0,0" FontWeight="Bold" Foreground="Red"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,0">
-                        <Button x:Name="btnEditar" Content="Editar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="editarHabilitado"/>
-                        <Button x:Name="btnGuardar" Content="Guardar" Width="120" Margin="5" Command="{Binding GuardarEstudianteCommand}" CommandParameter="{Binding ElementName=vistaEstudiantes}"/>
-                        <Button x:Name="btnCancelar" Content="Cancelar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="cancelarEditar"/>
-                    </StackPanel>
+                        <Button x:Name="btnEditar" Content="Editar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="editarHabilitado" Click="btnEditar_Click"/>
+                        <Button x:Name="btnAnadir" Content="Añadir" Width="120" Margin="5" Command="{Binding CrearProductoCommand}" CommandParameter="{Binding ElementName=vistaProductos}" Click="btnAnadir_Click"/>
+                        <Button x:Name="btnCancelar" Content="Cancelar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="cancelarEditar" Click="btnCancelar_Click"/>
+                        <Button x:Name="btnConfirmar" Content="Confirmar" Width="120" Margin="5" Command="{Binding GuardarEstudianteCommand}" CommandParameter="{Binding ElementName=vistaEstudiantes}" Click="btnConfirmar_Click"/>
+                        <Button x:Name="btnAnadirNuevo" Content="Añadir Nuevo" Width="120" Margin="5" Command="{Binding LimpiarFormularioProductosCommand}" CommandParameter="{Binding ElementName=vistaProductos}"/>
+                        </StackPanel>
                     </StackPanel>
                 </materialDesign:Card>
 

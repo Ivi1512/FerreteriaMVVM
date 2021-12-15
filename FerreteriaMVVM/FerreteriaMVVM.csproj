@@ -69,6 +69,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CrearProductoCommand.cs" />
+    <Compile Include="Commands\CrearProveedorCommand.cs" />
+    <Compile Include="Commands\LimpiarFormularioProductosCommand.cs" />
+    <Compile Include="Commands\LimpiarFormularioCommand.cs" />
     <Compile Include="Commands\ProductosCommand.cs" />
     <Compile Include="Commands\ProveedoresCommand.cs" />
     <Compile Include="Commands\UpdateViewCommand.cs" />

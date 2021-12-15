@@ -31,9 +31,13 @@ namespace FerreteriaMVVM.Commands
             }
             else
             {
-                ProveedoresModel proveedor = (ProveedoresModel)parameter;
-                proveedoresViewModel.CurrentProveedor = (ProveedoresModel)proveedor.Clone();
-                proveedoresViewModel.SelectedProveedor = (ProveedoresModel)proveedor.Clone();
+                if(parameter != null)
+                {
+                    ProveedoresModel proveedor = (ProveedoresModel)parameter;
+                    proveedoresViewModel.CurrentProveedor = (ProveedoresModel)proveedor.Clone();
+                    proveedoresViewModel.SelectedProveedor = (ProveedoresModel)proveedor.Clone();
+                }
+                
             }
         }
 

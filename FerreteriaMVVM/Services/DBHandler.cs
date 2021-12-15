@@ -1,4 +1,5 @@
 ﻿using FerreteriaMVVM.Models;
+using FerreteriaMVVM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,31 +11,73 @@ namespace FerreteriaMVVM.Services
 {
     class DBHandler
     {
-        public static ObservableCollection<ProveedoresModel> listaProveedores { set; get; }
+        public static ObservableCollection<ProveedoresModel> listaProveedores;
 
         public static ObservableCollection<ProveedoresModel> GetProveedores()
         {
             listaProveedores = new ObservableCollection<ProveedoresModel>();
-
-            listaProveedores.Add(new ProveedoresModel("id1", "proveedor1", "fsdfds", "54536"));
-            listaProveedores.Add(new ProveedoresModel("id2", "proveedor2", "fsdfds", "5455543546"));
-            listaProveedores.Add(new ProveedoresModel("id3", "proveedor3", "fsdfds", "45"));
-            listaProveedores.Add(new ProveedoresModel("id4", "proveedor4", "fsdfds", "459688"));
+            listaProveedores.Add(new ProveedoresModel("almacen1", "Ikea", "addfd", "5866254"));
+            listaProveedores.Add(new ProveedoresModel("almacen2", "Leroy Merlin", "addfd", "12522"));
+            listaProveedores.Add(new ProveedoresModel("almacen3", "Carlos", "addfd", "12545"));
+            listaProveedores.Add(new ProveedoresModel("almacen4", "Manolo", "addfd", "259901"));
 
             return listaProveedores;
         }
 
+        internal static bool CrearProveedores(ProductosModel currentProducto)
+        {
+            throw new NotImplementedException();
+        }
 
-        public static ObservableCollection<ProductosModel> listaProductos { set; get; }
+        public static ObservableCollection<string> GetCategorias()
+        {
+            ObservableCollection<string> listCategorias = new ObservableCollection<string>();
+            listCategorias.Add("Llaves");
+            listCategorias.Add("Herramientas");
+            listCategorias.Add("Calefacción");
+            listCategorias.Add("Electricidad");
+            listCategorias.Add("Tornillería");
+
+            return listCategorias;
+
+        }
+
+        public static ObservableCollection<string> GetMarcas()
+        {
+            ObservableCollection<string> listMarcas = new ObservableCollection<string>();
+            listMarcas.Add("Wurt");
+            listMarcas.Add("Palmera");
+            listMarcas.Add("Bosch");
+            listMarcas.Add("Still");
+
+            return listMarcas;
+
+        }
+
+        public static ObservableCollection<string> GetMateriales()
+        {
+            ObservableCollection<string> listMateriales= new ObservableCollection<string>();
+            listMateriales.Add("Aluminio");
+            listMateriales.Add("Cobre");
+            listMateriales.Add("Latón");
+            listMateriales.Add("Inoxidable");
+            listMateriales.Add("Plástico");
+
+            return listMateriales;
+        }
+
+
+        public static ObservableCollection<ProductosModel> listaProductos;
+
         public static ObservableCollection<ProductosModel> GetProductos()
         {
             listaProductos = new ObservableCollection<ProductosModel>();
 
             var random = new Random();
-            var listCategoria = new List<string>() { "Llaves", "Herramientas", "calefacción", "electricidad", "tornillería" };
-            var listMarca = new List<string>() { "Wurt", "Palmera", "Bosch", "Still" };
-            var listProveedores = new List<string>() { "almacen1", "almacen2", "almacen3", "almacen4" };
-            var listMaterial = new List<string>() { "Aluminio", "Cobre", "Latón", "Inoxidable", "Plástico" };
+            var listCategoria = GetCategorias();
+            var listMarca = GetMarcas();
+            var listProveedores = GetProveedores();
+            var listMaterial = GetMateriales();
             
 
             for(int i = 0; i<10; i++)
@@ -46,7 +89,7 @@ namespace FerreteriaMVVM.Services
 
                 ProductosModel p = new ProductosModel();
                 p._id = i.ToString();
-                p.Proveedor = listProveedores[index3];
+                p.Proveedores = listProveedores[index3];
                 p.Categoria = listCategoria[index];
                 p.Marca = listMarca[index2];
                 p.Material = listMaterial[index4];
@@ -56,47 +99,44 @@ namespace FerreteriaMVVM.Services
                 p.FechaEntrada = DateTime.Today;
                 p.Stock = 8;
 
-                if (listProveedores.Equals("almacen1"))
-                {
-                    p.Proveedores._id = "almacen1";
-                    p.Proveedores.Nombre = "Ikea";
-                    p.Proveedores.Poblacion = "addfd";
-                    p.Proveedores.Telefono = "5866254";
-                }
-                else if (listProveedores.Equals("almacen2"))
-                {
-                    p.Proveedores._id = "almacen2";
-                    p.Proveedores.Nombre = "Leroy Merlin";
-                    p.Proveedores.Poblacion = "addfd";
-                    p.Proveedores.Telefono = "12522";
-                }
-                else if (listProveedores.Equals("almacen3"))
-                {
-                    p.Proveedores._id = "almacen3";
-                    p.Proveedores.Nombre = "Carlos";
-                    p.Proveedores.Poblacion = "addfd";
-                    p.Proveedores.Telefono = "12545";
-                }
-                else if (listProveedores.Equals("almacen4"))
-                {
-                    p.Proveedores._id = "almacen4";
-                    p.Proveedores.Nombre = "Manolo";
-                    p.Proveedores.Poblacion = "addfd";
-                    p.Proveedores.Telefono = "259901";
-                }
-
                 listaProductos.Add(p);
             }
 
             return listaProductos;
         }
 
-        public static void hola()
+        
+        public static bool CrearProveedores(ProveedoresModel proveedor)
         {
+            bool creadoOK = false;
+            try
+            {
+                listaProveedores.Add(proveedor);
+                creadoOK = true;
+            }
+            catch(Exception e)
+            {
+
+            }
+
+            return creadoOK;
+        }
 
 
-            //string[] categorias = new string[] { "Llaves", "Herramientas", "calefacción", "electricidad", "tornillería" };
-            //string randomName = categorias[Random.Range(1, 4)];
+        public static bool CrearProductos(ProductosModel producto)
+        {
+            bool creadoOK = false;
+            try
+            {
+                listaProductos.Add(producto);
+                creadoOK = true;
+            }
+            catch(Exception e)
+            {
+
+            }
+
+            return creadoOK;
         }
     }
 }

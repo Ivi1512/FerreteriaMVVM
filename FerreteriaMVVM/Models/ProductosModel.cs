@@ -44,17 +44,6 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private string proveedor { set; get; }
-        public string Proveedor
-        {
-            get { return proveedor; }
-            set
-            {
-                proveedor = value;
-                OnPropertyChanged(nameof(Proveedor));
-            }
-        }
-
         private string categoria { set; get; }
         public string Categoria
         {
@@ -148,18 +137,17 @@ namespace FerreteriaMVVM.Models
             proveedores = new ProveedoresModel();
         }
 
-        //public ProductosModel(string id, string proveedor, string categoria, string marca, string material, string referencia, string descripcion, double precio, DateTime fechaEntrada, int stock)
-        //{
-        //    this.id = id;
-        //    this.proveedor = proveedor;
-        //    this.categoria = categoria;
-        //    this.marca = marca;
-        //    this.material = material;
-        //    this.referencia = referencia;
-        //    this.descripcion = descripcion;
-        //    this.precio = precio;
-        //    this.fechaEntrada = fechaEntrada;
-        //    this.stock = stock;
-        //}
+        public ProductosModel(string id, string categoria, string marca, string material, string referencia, string descripcion, double precio, DateTime fechaEntrada, int stock)
+        {
+            this.id = id;
+            this.categoria = categoria;
+            this.marca = marca;
+            this.material = material;
+            this.referencia = referencia;
+            this.descripcion = descripcion;
+            this.precio = precio;
+            this.fechaEntrada = fechaEntrada;
+            this.stock = stock;
+        }
     }
 }

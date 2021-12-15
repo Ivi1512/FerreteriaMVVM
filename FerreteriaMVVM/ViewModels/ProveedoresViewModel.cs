@@ -48,11 +48,17 @@ namespace FerreteriaMVVM.ViewModels
         }
 
         public ICommand ProveedoresCommand { set; get; }
+
+        public ICommand LimpiarFormularioCommand { set; get; }
+
+        public ICommand CrearProveedorCommand { set; get; }
         public ProveedoresViewModel()
         {
             currentProvedor = new ProveedoresModel();
             listaProveedores = new ObservableCollection<ProveedoresModel>();
             ProveedoresCommand = new ProveedoresCommand(this);
+            LimpiarFormularioCommand = new LimpiarFormularioCommand(this);
+            CrearProveedorCommand = new CrearProveedorCommand(this);
         }
     }
 }
