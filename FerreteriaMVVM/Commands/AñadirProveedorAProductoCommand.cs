@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Data;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FerreteriaMVVM.Commands
 {
-    class ProductosCommand : ICommand
+    class AñadirProveedorAProductoCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -22,25 +22,22 @@ namespace FerreteriaMVVM.Commands
 
         public void Execute(object parameter)
         {
-            if(parameter is string)
+            ProveedoresModel proveedor = (ProveedoresModel)parameter;
+            if (proveedor != null)
             {
-                productosViewModel.ListaProductos = DBHandler.listaProductos;
-                productosViewModel.ListaProveedores = DBHandler.listaProveedores;
-            }
-            else
-            {
-                if (parameter != null)
+                if (!productosViewModel.CurrentProducto.Proveedores.Contains(proveedor))
                 {
-                    ProductosModel producto = (ProductosModel)parameter;
-                    productosViewModel.CurrentProducto = (ProductosModel)producto.Clone();
-                    //productosViewModel.SelectedProducto = (ProductosModel)producto.Clone();
-                }
-            }
+                    productosViewModel.CurrentProducto.Proveedores.Add(proveedor);
 
+                    MessageBox.Show("Proveedor " + proveedor.Nombre + " añadido correctamente");
+                }
+                else MessageBox.Show("Este producto ya tiene el proveedor " + proveedor.Nombre);
+            }
+            else MessageBox.Show("¡Selecciona un proveedor!");
         }
 
         private ProductosViewModel productosViewModel { set; get; }
-        public ProductosCommand(ProductosViewModel ProductosViewModel)
+        public AñadirProveedorAProductoCommand(ProductosViewModel ProductosViewModel)
         {
             productosViewModel = ProductosViewModel;
         }

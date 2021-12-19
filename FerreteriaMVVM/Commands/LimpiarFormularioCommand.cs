@@ -23,15 +23,14 @@ namespace FerreteriaMVVM.Commands
         {
             ProveedoresView vista = (ProveedoresView) parameter;
 
-            proveedoresViewModel.CurrentProveedor = new ProveedoresModel();
+            ((ProveedoresViewModel)vista.DataContext).CurrentProveedor = new ProveedoresModel();
             vista.E00EstadoInicial();
             vista.edt_cif.IsEnabled = true;
         }
 
-        private ProveedoresViewModel proveedoresViewModel;
-        public LimpiarFormularioCommand(ProveedoresViewModel proveedoresViewModel) 
+        public LimpiarFormularioCommand() 
         {
-            this.proveedoresViewModel = proveedoresViewModel;
+            
         }
     }
 }

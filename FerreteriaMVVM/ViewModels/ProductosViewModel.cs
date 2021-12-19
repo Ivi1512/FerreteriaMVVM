@@ -4,32 +4,56 @@ using FerreteriaMVVM.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace FerreteriaMVVM.ViewModels
 {
     class ProductosViewModel : ViewModelBase
     {
-        private ObservableCollection<ProveedoresModel> listaProveedores;
-        public ObservableCollection<ProveedoresModel> ListaProveedores
+        public ObservableCollection<string> listaCategorias;
+        public ObservableCollection<string> ListaCategorias
         {
-            get => listaProveedores is null ? listaProveedores = new ObservableCollection<ProveedoresModel>() : listaProveedores;
+            get => listaCategorias is null ? listaCategorias = new ObservableCollection<string>() : listaCategorias;
             set
             {
-                if(listaProveedores != value)
+                if (listaCategorias != value)
                 {
-                    listaProveedores = value;
+                    listaCategorias = value;
                     OnPropertyChanged();
                 }
             }
         }
-
-        public ObservableCollection<string> listaCategorias { set; get; }
-        public ObservableCollection<string> listaMateriales { set; get; }
-        public ObservableCollection<string> listaMarcas { set; get; }
+        public ObservableCollection<string> listaMateriales;
+        public ObservableCollection<string> ListaMateriales
+        {
+            get => listaMateriales is null ? listaMateriales = new ObservableCollection<string>() : listaMateriales;
+            set
+            {
+                if (listaMateriales != value)
+                {
+                    listaMateriales = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public ObservableCollection<string> listaMarcas;
+        public ObservableCollection<string> ListaMarcas
+        {
+            get => listaMarcas is null ? listaMarcas = new ObservableCollection<string>() : listaMarcas;
+            set
+            {
+                if (listaMarcas != value)
+                {
+                    listaMarcas = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private ObservableCollection<ProductosModel> listaProductos;
         public ObservableCollection<ProductosModel> ListaProductos
@@ -46,7 +70,7 @@ namespace FerreteriaMVVM.ViewModels
         private ProductosModel currentProducto;
         public ProductosModel CurrentProducto
         {
-            get { return currentProducto; }
+            get => currentProducto is null ? currentProducto = new ProductosModel() : currentProducto;
             set
             {
                 currentProducto = value;
@@ -58,7 +82,7 @@ namespace FerreteriaMVVM.ViewModels
         private ProductosModel selectedProducto { set; get; }
         public ProductosModel SelectedProducto
         {
-            get { return selectedProducto; }
+            get => selectedProducto is null ? selectedProducto = new ProductosModel() : selectedProducto;
             set
             {
                 selectedProducto = value;
@@ -67,22 +91,25 @@ namespace FerreteriaMVVM.ViewModels
         }
 
         public ICommand ProductosCommand { set; get; }
-
         public ICommand LimpiarFormularioProductosCommand { set; get; }
-
         public ICommand CrearProductoCommand { set; get; }
+        public ICommand EditarProductosCommand { set; get; }
+        public ICommand BorrarProductoCommand {set;get;}
+        public ICommand AñadirProveedorAProductoCommand { set;get;}
+        public ICommand CancelarCambiosCommand { set;get;}
 
         public ProductosViewModel()
         {
-            currentProducto = new ProductosModel();
-            ListaProveedores = DBHandler.GetProveedores();
-            listaCategorias = DBHandler.GetCategorias();
-            listaMarcas = DBHandler.GetMarcas();
-            listaMateriales = DBHandler.GetMateriales();
-            listaProductos = new ObservableCollection<ProductosModel>();
+            ListaCategorias = DBHandler.GetCategorias();
+            ListaMarcas = DBHandler.GetMarcas();
+            ListaMateriales = DBHandler.GetMateriales();
             ProductosCommand = new ProductosCommand(this);
-            LimpiarFormularioProductosCommand = new LimpiarFormularioProductosCommand(this);
-            CrearProductoCommand = new CrearProductoCommand(this);
+            LimpiarFormularioProductosCommand = new LimpiarFormularioProductosCommand();
+            CrearProductoCommand = new CrearProductoCommand();
+            EditarProductosCommand = new EditarProductoCommand();
+            BorrarProductoCommand = new BorrarProductoCommand();
+            AñadirProveedorAProductoCommand = new AñadirProveedorAProductoCommand(this);
+            CancelarCambiosCommand = new CancelarCambiosCommand();
         }
     }
 }

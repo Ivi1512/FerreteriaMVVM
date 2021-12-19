@@ -62,10 +62,14 @@ namespace FerreteriaMVVM.Views
             E01MostrarProveedor();
         }
 
+        private void btnBorrar_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
-            E01MostrarProveedor();
+            E02EditarProveedor();
             edt_cif.IsEnabled = false;
         }
 
@@ -76,7 +80,9 @@ namespace FerreteriaMVVM.Views
             btnAnadir.Visibility = Visibility.Visible;
             btnConfirmar.Visibility = Visibility.Collapsed;
             btnAnadirNuevo.Visibility = Visibility.Collapsed;
+            btnBorrar.Visibility = Visibility.Collapsed;
 
+            edt_cif.IsEnabled = true;
             EditarActivado = true;
         }
 
@@ -87,6 +93,7 @@ namespace FerreteriaMVVM.Views
             btnAnadir.Visibility = Visibility.Collapsed;
             btnConfirmar.Visibility = Visibility.Collapsed;
             btnAnadirNuevo.Visibility = Visibility.Visible;
+            btnBorrar.Visibility = Visibility.Visible;
             edt_cif.IsEnabled = false;
             EditarActivado = false;
         }
@@ -98,6 +105,7 @@ namespace FerreteriaMVVM.Views
             btnAnadir.Visibility = Visibility.Collapsed;
             btnConfirmar.Visibility = Visibility.Visible;
             btnAnadirNuevo.Visibility = Visibility.Collapsed;
+            btnBorrar.Visibility = Visibility.Collapsed;
             EditarActivado = true;
             edt_cif.IsEnabled = false;
         }

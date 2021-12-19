@@ -1,4 +1,5 @@
-﻿using FerreteriaMVVM.Services;
+﻿using FerreteriaMVVM.Models;
+using FerreteriaMVVM.Services;
 using FerreteriaMVVM.ViewModels;
 using FerreteriaMVVM.Views;
 using System;
@@ -24,26 +25,28 @@ namespace FerreteriaMVVM.Commands
         {
             ProveedoresView vista = (ProveedoresView)parameter;
 
-            
-                bool crearOK = DBHandler.CrearProveedores(proveedoresViewModel.CurrentProveedor);
-                if(crearOK)
+            if (Validation.ValidarCamposVaciosProveedores(vista))
+            {
+                MessageBoxResult confirmacion = MessageBox.Show("¿Estas seguro que quieres crear al proveedor?", "Confirmación", MessageBoxButton.YesNo);
+                switch (confirmacion)
                 {
-                    MessageBox.Show("Creado");
-                    vista.E01MostrarProveedor();
+                    case MessageBoxResult.Yes:
+                        if (DBHandler.CrearProveedores(((ProveedoresViewModel)vista.DataContext).CurrentProveedor))
+                        {
+                            vista.E01MostrarProveedor();
+                            vista.txtWarning.Visibility = Visibility.Collapsed;
+                        }
+                        break;
+
+                    case MessageBoxResult.No:
+                        break;
                 }
-                else
-                {
-                    MessageBox.Show("Error");
-                }
-            
+            }
         }
 
-
-        private ProveedoresViewModel proveedoresViewModel;
-
-        public CrearProveedorCommand(ProveedoresViewModel proveedoresViewModel)
+        public CrearProveedorCommand()
         {
-            this.proveedoresViewModel = proveedoresViewModel;
+            
         }
     }
 }

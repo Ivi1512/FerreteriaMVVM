@@ -3,31 +3,202 @@ using FerreteriaMVVM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FerreteriaMVVM.Services
 {
-    class DBHandler
+    public class DBHandler
     {
-        public static ObservableCollection<ProveedoresModel> listaProveedores;
+        #region Proveedores
+        public static ObservableCollection<ProveedoresModel> listaProveedores { get; set; } = GetProveedores();
 
-        public static ObservableCollection<ProveedoresModel> GetProveedores()
+        private static ObservableCollection<ProveedoresModel> GetProveedores()
         {
             listaProveedores = new ObservableCollection<ProveedoresModel>();
-            listaProveedores.Add(new ProveedoresModel("almacen1", "Ikea", "addfd", "5866254"));
-            listaProveedores.Add(new ProveedoresModel("almacen2", "Leroy Merlin", "addfd", "12522"));
-            listaProveedores.Add(new ProveedoresModel("almacen3", "Carlos", "addfd", "12545"));
-            listaProveedores.Add(new ProveedoresModel("almacen4", "Manolo", "addfd", "259901"));
-
+            listaProveedores.Add(new ProveedoresModel("1", "Ikea", "Madrid", "912587457"));
+            listaProveedores.Add(new ProveedoresModel("2", "Leroy Merlin", "Barcelona", "632251450"));
+            listaProveedores.Add(new ProveedoresModel("3", "Amazon", "París", "567476123"));
+            listaProveedores.Add(new ProveedoresModel("4", "Ferretería Manolo", "Seseña", "874632005"));
             return listaProveedores;
         }
 
-        internal static bool CrearProveedores(ProductosModel currentProducto)
+        public static bool CrearProveedores(ProveedoresModel CurrentProveedor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                listaProveedores.Add(CurrentProveedor);
+                MessageBox.Show("Proveedor " + CurrentProveedor.Nombre + " creado correctamente");
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error al crear el proveedor " + CurrentProveedor.Nombre + ". Error: " + e.Message);
+                return false;
+            }
         }
+
+        public static bool EditarProveedores(ProveedoresModel CurrentProveedor)
+        {
+            try
+            {
+                foreach (ProveedoresModel p in listaProveedores)
+                {
+                    if (p._id.Equals(CurrentProveedor._id))
+                    {
+                        p.Nombre = CurrentProveedor.Nombre;
+                        p.Poblacion = CurrentProveedor.Poblacion;
+                        p.Telefono = CurrentProveedor.Telefono;
+                        break;
+                    }
+                }
+                MessageBox.Show("Proveedor " + CurrentProveedor.Nombre + " editado correctamente");
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error al editar el proveedor " + CurrentProveedor.Nombre + ". Error: " + e.Message);
+                return false;
+            }
+        }
+
+        public static bool BorrarProveedores(ProveedoresModel CurrentProveedor)
+        {
+            try
+            {
+                foreach (ProveedoresModel p in listaProveedores)
+                {
+                    if (p._id.Equals(CurrentProveedor._id))
+                    {
+                        listaProveedores.Remove(p);
+                        break;
+                    }
+                }
+                MessageBox.Show("Proveedor " + CurrentProveedor.Nombre + " borrado correctamente");
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error al eliminar el proveedor " + CurrentProveedor.Nombre + ". Error: " + e.Message);
+                return false;
+            }
+        }
+        #endregion
+
+        #region Productos
+        public static ObservableCollection<ProductosModel> listaProductos { get; set; } = GetProductos();
+
+        private static ObservableCollection<ProductosModel> GetProductos()
+        {
+            listaProductos = new ObservableCollection<ProductosModel>();
+
+            var random = new Random();
+            var listCategoria = GetCategorias();
+            var listMarca = GetMarcas();
+            var listMaterial = GetMateriales();
+
+            for (int i = 1; i < 10; i++)
+            {
+                int indexCategoria = random.Next(listCategoria.Count);
+                int indexMarca = random.Next(listMarca.Count);
+                int indexMaterial = random.Next(listMaterial.Count);
+
+                ProductosModel p = new ProductosModel();
+                p._id = i.ToString();
+                p.Categoria = listCategoria[indexCategoria];
+                p.Marca = listMarca[indexMarca];
+                p.Material = listMaterial[indexMaterial];
+                p.Referencia = "00" + i;
+                p.Descripcion = "Este es el producto " + p.Referencia;
+                p.Precio = 10.5 * i;
+                p.FechaEntrada = DateTime.Today;
+                p.Stock = 10 * i;
+
+                int numeroProveedores = random.Next(1, listaProveedores.Count);
+                for (int j = 0; j < numeroProveedores; j++)
+                {
+                    int indexProveedor = random.Next(listaProveedores.Count);
+                    if(!p.Proveedores.Contains(listaProveedores[indexProveedor]))
+                    {
+                        p.Proveedores.Add(listaProveedores[indexProveedor]);
+                    }
+                }
+
+                listaProductos.Add(p);
+            }
+            return listaProductos;
+        }
+
+        public static bool CrearProductos(ProductosModel CurrentProducto)
+        {
+            try
+            {
+                listaProductos.Add(CurrentProducto);
+                MessageBox.Show("Producto " + CurrentProducto.Nombre + " creado correctamente");
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error al crear el producto " + CurrentProducto.Nombre + ". Error: " + e.Message);
+                return false;
+            }
+        }
+
+        public static bool EditarProductos(ProductosModel CurrentProducto)
+        {
+            try
+            {
+                foreach (ProductosModel p in listaProductos)
+                {
+                    if (p._id.Equals(CurrentProducto._id))
+                    {
+                        p.Proveedores = CurrentProducto.Proveedores;
+                        p.Categoria = CurrentProducto.Categoria;
+                        p.Marca = CurrentProducto.Marca;
+                        p.Material = CurrentProducto.Material;
+                        p.Referencia = CurrentProducto.Referencia;
+                        p.Descripcion = CurrentProducto.Descripcion;
+                        p.Precio = CurrentProducto.Precio;
+                        p.FechaEntrada = CurrentProducto.FechaEntrada;
+                        p.Stock = CurrentProducto.Stock;
+                        break;
+                    }
+                }
+                MessageBox.Show("Producto " + CurrentProducto.Nombre + " editado correctamente");
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error al editar el producto " + CurrentProducto.Nombre + ". Error: " + e.Message);
+                return false;
+            }
+        }
+
+        public static bool BorrarProductos(ProductosModel CurrentProducto)
+        {
+            try
+            {
+                foreach (ProductosModel p in listaProductos)
+                {
+                    if (p._id.Equals(CurrentProducto._id))
+                    {
+                        listaProductos.Remove(p);
+                        break;
+                    }
+                }
+                MessageBox.Show("Producto " + CurrentProducto.Nombre + " borrado correctamente");
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error al borrar el producto " + CurrentProducto.Nombre + ". Error: " + e.Message);
+                return false;
+            }
+        }
+        #endregion
 
         public static ObservableCollection<string> GetCategorias()
         {
@@ -39,7 +210,6 @@ namespace FerreteriaMVVM.Services
             listCategorias.Add("Tornillería");
 
             return listCategorias;
-
         }
 
         public static ObservableCollection<string> GetMarcas()
@@ -64,79 +234,6 @@ namespace FerreteriaMVVM.Services
             listMateriales.Add("Plástico");
 
             return listMateriales;
-        }
-
-
-        public static ObservableCollection<ProductosModel> listaProductos;
-
-        public static ObservableCollection<ProductosModel> GetProductos()
-        {
-            listaProductos = new ObservableCollection<ProductosModel>();
-
-            var random = new Random();
-            var listCategoria = GetCategorias();
-            var listMarca = GetMarcas();
-            var listProveedores = GetProveedores();
-            var listMaterial = GetMateriales();
-            
-
-            for(int i = 0; i<10; i++)
-            {
-                int index = random.Next(listCategoria.Count);
-                int index2 = random.Next(listMarca.Count);
-                int index3 = random.Next(listProveedores.Count);
-                int index4 = random.Next(listMaterial.Count);
-
-                ProductosModel p = new ProductosModel();
-                p._id = i.ToString();
-                p.Proveedores = listProveedores[index3];
-                p.Categoria = listCategoria[index];
-                p.Marca = listMarca[index2];
-                p.Material = listMaterial[index4];
-                p.Referencia = "fh";
-                p.Descripcion = "hola";
-                p.Precio = 52.0;
-                p.FechaEntrada = DateTime.Today;
-                p.Stock = 8;
-
-                listaProductos.Add(p);
-            }
-
-            return listaProductos;
-        }
-
-        
-        public static bool CrearProveedores(ProveedoresModel proveedor)
-        {
-            bool creadoOK = false;
-            try
-            {
-                listaProveedores.Add(proveedor);
-                creadoOK = true;
-            }
-            catch(Exception e)
-            {
-
-            }
-
-            return creadoOK;
-        }
-
-
-        public static bool CrearProductos(ProductosModel producto)
-        {
-            bool creadoOK = false;
-            try
-            {
-                listaProductos.Add(producto);
-                creadoOK = true;
-            }
-            catch(Exception e)
-            {
-
-            }
-
-            return creadoOK;
         }
     }
 }

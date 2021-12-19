@@ -1,5 +1,4 @@
-﻿using FerreteriaMVVM.Models;
-using FerreteriaMVVM.Services;
+﻿using FerreteriaMVVM.Services;
 using FerreteriaMVVM.ViewModels;
 using FerreteriaMVVM.Views;
 using System;
@@ -12,7 +11,7 @@ using System.Windows.Input;
 
 namespace FerreteriaMVVM.Commands
 {
-    class CrearProductoCommand : ICommand
+    class EditarProveedoresCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -23,19 +22,18 @@ namespace FerreteriaMVVM.Commands
 
         public void Execute(object parameter)
         {
-            ProductosView vista = (ProductosView)parameter;
+            ProveedoresView vista = (ProveedoresView)parameter;
 
-            if (Validation.ValidarCamposVaciosProducto(vista))
+            if (Validation.ValidarCamposVaciosProveedores(vista))
             {
-                MessageBoxResult confirmacion = MessageBox.Show("¿Estas seguro que quieres crear el producto?", "Confirmación", MessageBoxButton.YesNo);
+                MessageBoxResult confirmacion = MessageBox.Show("¿Estas seguro que quieres modificar al proveedor?", "Confirmación", MessageBoxButton.YesNo);
                 switch (confirmacion)
                 {
                     case MessageBoxResult.Yes:
-                        if (DBHandler.CrearProductos(((ProductosViewModel)vista.DataContext).CurrentProducto))
+                        if (DBHandler.EditarProveedores(((ProveedoresViewModel)vista.DataContext).CurrentProveedor))
                         {
-                            vista.E01MostrarProducto();
+                            vista.E01MostrarProveedor();
                             vista.txtWarning.Visibility = Visibility.Collapsed;
-                            vista.edt_codigo_barras.IsEnabled = false;
                         }
                         break;
 
@@ -43,11 +41,10 @@ namespace FerreteriaMVVM.Commands
                         break;
                 }
             }
-           
-
         }
 
-        public CrearProductoCommand()
+        
+        public EditarProveedoresCommand()
         {
             
         }

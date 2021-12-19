@@ -1,6 +1,7 @@
 ﻿using FerreteriaMVVM.Models;
 using FerreteriaMVVM.Services;
 using FerreteriaMVVM.ViewModels;
+using FerreteriaMVVM.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,8 @@ namespace FerreteriaMVVM.Commands
         public void Execute(object parameter)
         {
             if (parameter is string)
-            { 
-                string accion = parameter.ToString();
-                if (accion.Equals("cargarLista"))
-                {
-                    proveedoresViewModel.ListaProveedores = DBHandler.GetProveedores();
-                }
+            {
+                proveedoresViewModel.ListaProveedores = DBHandler.listaProveedores;
             }
             else
             {
@@ -37,7 +34,6 @@ namespace FerreteriaMVVM.Commands
                     proveedoresViewModel.CurrentProveedor = (ProveedoresModel)proveedor.Clone();
                     proveedoresViewModel.SelectedProveedor = (ProveedoresModel)proveedor.Clone();
                 }
-                
             }
         }
 

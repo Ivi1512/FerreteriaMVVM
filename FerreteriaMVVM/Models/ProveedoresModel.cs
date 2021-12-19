@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FerreteriaMVVM.Models
 {
-    class ProveedoresModel : INotifyPropertyChanged, ICloneable
+    public class ProveedoresModel : INotifyPropertyChanged, ICloneable
     {
         
 
@@ -23,7 +23,7 @@ namespace FerreteriaMVVM.Models
             return MemberwiseClone();
         }
 
-        private string id { set; get; }
+        private string id;
         public string _id
         {
             get { return id; }
@@ -40,7 +40,7 @@ namespace FerreteriaMVVM.Models
         }
 
 
-        private string nombre { set; get; }
+        private string nombre;
         public string Nombre
         {
             get { return nombre; }
@@ -51,7 +51,7 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private string poblacion { set; get; }
+        private string poblacion;
         public string Poblacion
         {
             get { return poblacion; }
@@ -62,7 +62,7 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private string telefono { set; get; }
+        private string telefono;
         public string Telefono
         {
             get { return telefono; }

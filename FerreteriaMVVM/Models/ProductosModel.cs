@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FerreteriaMVVM.Models
 {
-    class ProductosModel : INotifyPropertyChanged, ICloneable
+    public class ProductosModel : INotifyPropertyChanged, ICloneable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -22,7 +22,7 @@ namespace FerreteriaMVVM.Models
             return MemberwiseClone();
         }
 
-        private string id { set; get; }
+        private string id;
         public string _id
         {
             get { return id; }
@@ -33,10 +33,10 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private ProveedoresModel proveedores { set; get; }
-        public ProveedoresModel Proveedores
+        private ObservableCollection<ProveedoresModel> proveedores;
+        public ObservableCollection<ProveedoresModel> Proveedores
         {
-            get { return proveedores; }
+            get => proveedores is null ? proveedores = new ObservableCollection<ProveedoresModel>() : proveedores;
             set
             {
                 proveedores = value;
@@ -44,7 +44,7 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private string categoria { set; get; }
+        private string categoria;
         public string Categoria
         {
             get { return categoria; }
@@ -55,7 +55,7 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private string marca { set; get; }
+        private string marca;
         public string Marca
         {
             get { return marca; }
@@ -66,7 +66,7 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private string material { set; get; }
+        private string material;
         public string Material
         {
             get { return material; }
@@ -77,7 +77,7 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private string referencia { set; get; }
+        private string referencia;
         public string Referencia
         {
             get { return referencia; }
@@ -88,7 +88,7 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private string descripcion { set; get; }
+        private string descripcion;
         public string Descripcion
         {
             get { return descripcion; }
@@ -99,7 +99,7 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private double precio { set; get; }
+        private double precio;
         public double Precio
         {
             get { return precio; }
@@ -110,7 +110,7 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private DateTime fechaEntrada { set; get; }
+        private DateTime fechaEntrada;
         public DateTime FechaEntrada
         {
             get { return fechaEntrada; }
@@ -121,7 +121,7 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        private int stock { set; get; }
+        private int stock;
         public int Stock
         {
             get { return stock; }
@@ -132,14 +132,20 @@ namespace FerreteriaMVVM.Models
             }
         }
 
-        public ProductosModel()
+        public string Nombre
         {
-            proveedores = new ProveedoresModel();
+            get => _id + " " + referencia;
         }
 
-        public ProductosModel(string id, string categoria, string marca, string material, string referencia, string descripcion, double precio, DateTime fechaEntrada, int stock)
+        public ProductosModel()
+        {
+            
+        }
+
+        public ProductosModel(string id, ObservableCollection<ProveedoresModel> proveedores, string categoria, string marca, string material, string referencia, string descripcion, double precio, DateTime fechaEntrada, int stock)
         {
             this.id = id;
+            this.proveedores = proveedores;
             this.categoria = categoria;
             this.marca = marca;
             this.material = material;

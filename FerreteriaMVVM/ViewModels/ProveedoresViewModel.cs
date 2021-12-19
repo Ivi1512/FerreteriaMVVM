@@ -12,22 +12,10 @@ namespace FerreteriaMVVM.ViewModels
 {
     class ProveedoresViewModel : ViewModelBase
     {
-        private ObservableCollection<ProveedoresModel> listaProveedores { set; get; }
-        public ObservableCollection<ProveedoresModel> ListaProveedores
-        {
-            get { return listaProveedores; }
-            set
-            {
-                listaProveedores = value;
-                OnPropertyChanged(nameof(ListaProveedores));
-            }
-        }
-
-
         private ProveedoresModel currentProvedor { set; get; }
         public ProveedoresModel CurrentProveedor 
         {
-            get { return currentProvedor; }
+            get => currentProvedor is null ? currentProvedor = new ProveedoresModel() : currentProvedor;
             set
             {
                 currentProvedor = value;
@@ -39,7 +27,7 @@ namespace FerreteriaMVVM.ViewModels
         private ProveedoresModel selectedProvedor { set; get; }
         public ProveedoresModel SelectedProveedor
         {
-            get { return selectedProvedor; }
+            get => selectedProvedor is null ? selectedProvedor = new ProveedoresModel() : selectedProvedor;
             set
             {
                 selectedProvedor = value;
@@ -52,13 +40,18 @@ namespace FerreteriaMVVM.ViewModels
         public ICommand LimpiarFormularioCommand { set; get; }
 
         public ICommand CrearProveedorCommand { set; get; }
+
+        public ICommand EditarProveedoresCommand { set; get; }
+
+        public ICommand BorrarProveedorCommand { set; get; }
+
         public ProveedoresViewModel()
         {
-            currentProvedor = new ProveedoresModel();
-            listaProveedores = new ObservableCollection<ProveedoresModel>();
             ProveedoresCommand = new ProveedoresCommand(this);
-            LimpiarFormularioCommand = new LimpiarFormularioCommand(this);
-            CrearProveedorCommand = new CrearProveedorCommand(this);
+            LimpiarFormularioCommand = new LimpiarFormularioCommand();
+            CrearProveedorCommand = new CrearProveedorCommand();
+            EditarProveedoresCommand = new EditarProveedoresCommand();
+            BorrarProveedorCommand = new BorrarProveedorCommand();
         }
     }
 }

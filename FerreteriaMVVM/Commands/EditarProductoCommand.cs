@@ -1,5 +1,4 @@
-﻿using FerreteriaMVVM.Models;
-using FerreteriaMVVM.Services;
+﻿using FerreteriaMVVM.Services;
 using FerreteriaMVVM.ViewModels;
 using FerreteriaMVVM.Views;
 using System;
@@ -12,7 +11,7 @@ using System.Windows.Input;
 
 namespace FerreteriaMVVM.Commands
 {
-    class CrearProductoCommand : ICommand
+    class EditarProductoCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -27,11 +26,11 @@ namespace FerreteriaMVVM.Commands
 
             if (Validation.ValidarCamposVaciosProducto(vista))
             {
-                MessageBoxResult confirmacion = MessageBox.Show("¿Estas seguro que quieres crear el producto?", "Confirmación", MessageBoxButton.YesNo);
+                MessageBoxResult confirmacion = MessageBox.Show("¿Estas seguro que quieres editar el producto?", "Confirmación", MessageBoxButton.YesNo);
                 switch (confirmacion)
                 {
                     case MessageBoxResult.Yes:
-                        if (DBHandler.CrearProductos(((ProductosViewModel)vista.DataContext).CurrentProducto))
+                        if (DBHandler.EditarProductos(((ProductosViewModel)vista.DataContext).CurrentProducto))
                         {
                             vista.E01MostrarProducto();
                             vista.txtWarning.Visibility = Visibility.Collapsed;
@@ -43,11 +42,9 @@ namespace FerreteriaMVVM.Commands
                         break;
                 }
             }
-           
-
         }
 
-        public CrearProductoCommand()
+        public EditarProductoCommand()
         {
             
         }

@@ -7,8 +7,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              x:Name="vistaProveedores"
-             mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="1200">
+             xmlns:Services="clr-namespace:FerreteriaMVVM.Services"
+             mc:Ignorable="d">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -65,7 +65,7 @@
                             Text="{Binding CurrentProveedor._id, UpdateSourceTrigger=PropertyChanged}"
                             IsEnabled="{Binding ElementName=vistaProveedores, Path=EditarActivado}"/>
 
-                    <TextBox materialDesign:HintAssist.Hint="Nombre:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    <TextBox x:Name="edt_nombre" materialDesign:HintAssist.Hint="Nombre:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             VerticalAlignment="Center" Width="200"
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
@@ -73,7 +73,7 @@
                             IsEnabled="{Binding ElementName=vistaProveedores, Path=EditarActivado}"
                             />
 
-                    <TextBox materialDesign:HintAssist.Hint="Población:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    <TextBox x:Name="edt_poblacion" materialDesign:HintAssist.Hint="Población:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             VerticalAlignment="Center" Width="200"
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
@@ -81,7 +81,7 @@
                             IsEnabled="{Binding ElementName=vistaProveedores, Path=EditarActivado}"
                             />
 
-                    <TextBox materialDesign:HintAssist.Hint="Telefono:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    <TextBox x:Name="edt_telefono" materialDesign:HintAssist.Hint="Telefono:" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             VerticalAlignment="Center" Width="200"
                             FontSize="16"
                             materialDesign:TextFieldAssist.HasClearButton="True"
@@ -95,8 +95,9 @@
                         <Button x:Name="btnEditar" Content="Editar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="editarHabilitado" Click="btnEditar_Click"/>
                         <Button x:Name="btnAnadir" Content="Añadir" Width="120" Margin="5" Command="{Binding CrearProveedorCommand}" CommandParameter="{Binding ElementName=vistaProveedores}" Click="btnAnadir_Click"/>
                         <Button x:Name="btnCancelar" Content="Cancelar" Width="120" Margin="5" Click="btnCancelar_Click"/>
-                        <Button x:Name="btnConfirmar" Content="Confirmar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="cancelarEditar" Click="btnConfirmar_Click"/>
+                        <Button x:Name="btnConfirmar" Content="Confirmar" Width="120" Margin="5" Command="{Binding EditarProveedoresCommand}" CommandParameter="{Binding ElementName=vistaProveedores}" Click="btnConfirmar_Click"/>
                         <Button x:Name="btnAnadirNuevo" Content="Añadir Nuevo" Width="120" Margin="5" Command="{Binding LimpiarFormularioCommand}" CommandParameter="{Binding ElementName=vistaProveedores}"/>
+                        <Button x:Name="btnBorrar" Content="Borrar" Width="120" Margin="5" Command="{Binding BorrarProveedorCommand}" CommandParameter="{Binding ElementName=vistaProveedores}" Click="btnBorrar_Click"/>
                     </StackPanel>
                 </StackPanel>
 

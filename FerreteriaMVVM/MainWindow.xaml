@@ -6,7 +6,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:FerreteriaMVVM"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1200">
+        Title="MainWindow"
+        Height="900">
 
     
     <StackPanel>
@@ -16,9 +17,9 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="15" Content="Bienvenida" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Bienvenida" />
-            <Button Grid.Column="1" Margin="15" Content="Proveedores" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Proveedores"/>
-            <Button Grid.Column="2" Margin="15" Content="Productos" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Productos"/>
+            <Button x:Name="BtnBienvenida" Grid.Column="0" Margin="15" Content="Bienvenida" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Bienvenida" Click="Btn_Click"/>
+            <Button x:Name="BtnProveedores" Grid.Column="1" Margin="15" Content="Proveedores" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Proveedores" Click="Btn_Click"/>
+            <Button x:Name="BtnProductos" Grid.Column="2" Margin="15" Content="Productos" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Productos" Click="Btn_Click"/>
         
         </Grid>
 

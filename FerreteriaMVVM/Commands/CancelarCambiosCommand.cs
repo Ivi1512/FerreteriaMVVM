@@ -1,16 +1,16 @@
-﻿using FerreteriaMVVM.Models;
-using FerreteriaMVVM.ViewModels;
+﻿using FerreteriaMVVM.ViewModels;
 using FerreteriaMVVM.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FerreteriaMVVM.Commands
 {
-    class LimpiarFormularioProductosCommand : ICommand
+    class CancelarCambiosCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -21,14 +21,10 @@ namespace FerreteriaMVVM.Commands
 
         public void Execute(object parameter)
         {
-            ProductosView vista = (ProductosView)parameter;
-
-            ((ProductosViewModel)vista.DataContext).CurrentProducto = new ProductosModel();
-            vista.E00EstadoInicial();
-            vista.edt_codigo_barras.IsEnabled = true;
+            
         }
 
-        public LimpiarFormularioProductosCommand()
+        public CancelarCambiosCommand()
         {
             
         }

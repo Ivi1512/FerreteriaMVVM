@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FerreteriaMVVM.Models;
+using FerreteriaMVVM.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -51,7 +53,7 @@ namespace FerreteriaMVVM.Views
         private void btnEditar_Click(object sender, RoutedEventArgs e)
         {
             E02EditarProducto();
-            edt_odigo_barras.IsEnabled = false;
+            edt_codigo_barras.IsEnabled = false;
         }
         private void btnAnadir_Click(object sender, RoutedEventArgs e)
         {
@@ -66,8 +68,8 @@ namespace FerreteriaMVVM.Views
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
-            E01MostrarProducto();
-            edt_odigo_barras.IsEnabled = false;
+            E02EditarProducto();
+            edt_codigo_barras.IsEnabled = false;
         }
 
         public void E00EstadoInicial()
@@ -77,7 +79,9 @@ namespace FerreteriaMVVM.Views
             btnAnadir.Visibility = Visibility.Visible;
             btnConfirmar.Visibility = Visibility.Collapsed;
             btnAnadirNuevo.Visibility = Visibility.Collapsed;
-
+            btnBorrar.Visibility = Visibility.Collapsed;
+            comboProveedores.IsEnabled = false;
+            edt_codigo_barras.IsEnabled = true;
             EditarActivado = true;
         }
 
@@ -88,6 +92,10 @@ namespace FerreteriaMVVM.Views
             btnAnadir.Visibility = Visibility.Collapsed;
             btnConfirmar.Visibility = Visibility.Collapsed;
             btnAnadirNuevo.Visibility = Visibility.Visible;
+            btnBorrar.Visibility = Visibility.Visible;
+            dialogProveedores.IsEnabled = false;
+            comboProveedores.IsEnabled = false;
+            edt_codigo_barras.IsEnabled = false;
             EditarActivado = false;
         }
 
@@ -98,6 +106,9 @@ namespace FerreteriaMVVM.Views
             btnAnadir.Visibility = Visibility.Collapsed;
             btnConfirmar.Visibility = Visibility.Visible;
             btnAnadirNuevo.Visibility = Visibility.Collapsed;
+            btnBorrar.Visibility = Visibility.Collapsed;
+            dialogProveedores.IsEnabled = true;
+            comboProveedores.IsEnabled = true;
             EditarActivado = true;
         }
 
@@ -107,7 +118,5 @@ namespace FerreteriaMVVM.Views
             InitializeComponent();
             E00EstadoInicial();
         }
-
-        
     }
 }
