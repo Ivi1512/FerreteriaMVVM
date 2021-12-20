@@ -26,7 +26,7 @@ namespace FerreteriaMVVM.ViewModels
 
         public MainViewModel()
         {
-            selectedViewModel = new ViewModelBase();
+            selectedViewModel = new BienvenidaViewModel();
 
             UpdateViewCommand = new UpdateViewCommand(this);
         }

@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:FerreteriaMVVM"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="900">
+        Height="850" Width="1500">
 
     
     <StackPanel>

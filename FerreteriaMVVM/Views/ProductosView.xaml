@@ -8,7 +8,8 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              x:Name="vistaProductos"
-             xmlns:Services="clr-namespace:FerreteriaMVVM.Services">
+             xmlns:Services="clr-namespace:FerreteriaMVVM.Services"
+             Height="850" Width="1500">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -16,7 +17,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <StackPanel Background="DarkKhaki">
+    <StackPanel Background="SlateGray">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -84,7 +85,7 @@
                 <StackPanel Grid.Row="1" HorizontalAlignment="Center">
                     <materialDesign:Card Padding="20" Margin="15">
                         <StackPanel>
-                            <TextBlock Text="DATOS DEL PROVEEDOR" HorizontalAlignment="Center" Margin="15" FontSize="20" FontWeight="DemiBold"/>
+                            <TextBlock Text="DATOS DEL PROVEEDOR SELECCIONADO" HorizontalAlignment="Center" Margin="15" FontSize="20" FontWeight="DemiBold"/>
 
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -98,37 +99,37 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
 
-                                <Label Grid.Column="0" Grid.Row="0"
-                                   Content="CIF"/>
-                                <Label x:Name="edt_cif" Grid.Column="0" Grid.Row="1"
-                                   Style="{StaticResource MaterialDesignLabel}"
-                                   VerticalAlignment="Center" Width="200"
-                                   FontSize="16"
-                                   Content="{Binding ElementName=comboProveedores, Path=SelectedItem._id, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Grid.Column="0" Grid.Row="0"
+                                           Text="CIF"/>
+                                <TextBlock x:Name="edt_cif" Grid.Column="0" Grid.Row="1"
+                                           Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                           VerticalAlignment="Center" Width="200"
+                                           FontSize="16"
+                                           Text="{Binding ElementName=comboProveedores, Path=SelectedItem._id, UpdateSourceTrigger=PropertyChanged}"/>
 
-                                <Label Grid.Column="1" Grid.Row="0"
-                                   Content="NOMBRE"/>
-                                <Label x:Name="edt_nombre" Grid.Column="1" Grid.Row="1"
-                                   Style="{StaticResource MaterialDesignLabel}" 
-                                   VerticalAlignment="Center" Width="200"
-                                   FontSize="16"
-                                   Content="{Binding ElementName=comboProveedores, Path=SelectedItem.Nombre, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Grid.Column="1" Grid.Row="0"
+                                           Text="NOMBRE"/>
+                                <TextBlock x:Name="edt_nombre" Grid.Column="1" Grid.Row="1"
+                                           Style="{StaticResource MaterialDesignBody1TextBlock}" 
+                                           VerticalAlignment="Center" Width="200"
+                                           FontSize="16"
+                                           Text="{Binding ElementName=comboProveedores, Path=SelectedItem.Nombre, UpdateSourceTrigger=PropertyChanged}"/>
 
-                                <Label Grid.Column="2" Grid.Row="0"
-                                   Content="Población"/>
-                                <Label x:Name="edt_poblacion" Grid.Column="2" Grid.Row="1"
-                                   Style="{StaticResource MaterialDesignLabel}" 
-                                   VerticalAlignment="Center" Width="200"
-                                   FontSize="16"
-                                   Content="{Binding ElementName=comboProveedores, Path=SelectedItem.Poblacion, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Grid.Column="2" Grid.Row="0"
+                                           Text="POBLACIÓN"/>
+                                <TextBlock x:Name="edt_poblacion" Grid.Column="2" Grid.Row="1"
+                                           Style="{StaticResource MaterialDesignBody1TextBlock}" 
+                                           VerticalAlignment="Center" Width="200"
+                                           FontSize="16"
+                                           Text="{Binding ElementName=comboProveedores, Path=SelectedItem.Poblacion, UpdateSourceTrigger=PropertyChanged}"/>
 
-                                <Label Grid.Column="3" Grid.Row="0"
-                                   Content="TELÉFONO"/>
-                                <Label x:Name="edt_telefono" Grid.Column="3" Grid.Row="1"
-                                   Style="{StaticResource MaterialDesignLabel}" 
-                                   VerticalAlignment="Center" Width="200"
-                                   FontSize="16"
-                                   Content="{Binding ElementName=comboProveedores, Path=SelectedItem.Telefono, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Grid.Column="3" Grid.Row="0"
+                                           Text="TELÉFONO"/>
+                                <TextBlock x:Name="edt_telefono" Grid.Column="3" Grid.Row="1"
+                                       Style="{StaticResource MaterialDesignBody1TextBlock}" 
+                                       VerticalAlignment="Center" Width="200"
+                                       FontSize="16"
+                                       Text="{Binding ElementName=comboProveedores, Path=SelectedItem.Telefono, UpdateSourceTrigger=PropertyChanged}"/>
                             </Grid>
                         </StackPanel>
                     </materialDesign:Card>
@@ -285,7 +286,7 @@
                     <TextBlock x:Name="txtWarning" Text="{Binding TXWarning}" TextAlignment="Center" Margin="0,20,0,0" FontWeight="Bold" Foreground="Red"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,0">
-                        <Button x:Name="btnEditar" Content="Editar" Width="120" Margin="5" Command="{Binding StudentCommand}" CommandParameter="editarHabilitado" Click="btnEditar_Click"/>
+                        <Button x:Name="btnEditar" Content="Editar" Width="120" Margin="5" CommandParameter="editarHabilitado" Click="btnEditar_Click"/>
                         <Button x:Name="btnAnadir" Content="Añadir" Width="120" Margin="5" Command="{Binding CrearProductoCommand}" CommandParameter="{Binding ElementName=vistaProductos}" Click="btnAnadir_Click"/>
                         <Button x:Name="btnCancelar" Content="Cancelar" Width="120" Margin="5" Command="{Binding CancelarCambiosCommand}" CommandParameter="{Binding ElementName=vistaProductos}" Click="btnCancelar_Click"/>
                         <Button x:Name="btnConfirmar" Content="Confirmar" Width="120" Margin="5" Command="{Binding EditarProductosCommand}" CommandParameter="{Binding ElementName=vistaProductos}" Click="btnConfirmar_Click"/>
