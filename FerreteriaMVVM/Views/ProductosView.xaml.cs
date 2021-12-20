@@ -96,6 +96,7 @@ namespace FerreteriaMVVM.Views
             dialogProveedores.IsEnabled = false;
             comboProveedores.IsEnabled = false;
             edt_codigo_barras.IsEnabled = false;
+            txtWarning.Visibility = Visibility.Collapsed;
             EditarActivado = false;
         }
 

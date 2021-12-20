@@ -121,6 +121,8 @@ namespace FerreteriaMVVM.Models
             }
         }
 
+        
+
         private int stock;
         public int Stock
         {
@@ -136,6 +138,7 @@ namespace FerreteriaMVVM.Models
         {
             get => _id + " " + referencia;
         }
+
 
         public ProductosModel()
         {

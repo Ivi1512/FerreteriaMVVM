@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:FerreteriaMVVM.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              x:Name="vistaProductos"
              xmlns:Services="clr-namespace:FerreteriaMVVM.Services"
@@ -44,7 +45,8 @@
                 <Button Content="Filtrar" Grid.Column="1"
                         VerticalAlignment="Center" HorizontalAlignment="Center"
                         Width="125"
-                        Style="{StaticResource MaterialDesignFlatMidBgButton}"/>
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                        Command="{Binding FiltrarProductosCommand}" CommandParameter="{Binding ElementName=vistaProductos}"/>
             </Grid>
 
             <Grid Grid.Column="0" Grid.Row="1">
@@ -283,7 +285,7 @@
                                      Text="{Binding CurrentProducto.Stock, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
                         </Grid>
-                    <TextBlock x:Name="txtWarning" Text="{Binding TXWarning}" TextAlignment="Center" Margin="0,20,0,0" FontWeight="Bold" Foreground="Red"/>
+                    <TextBlock x:Name="txtWarning" TextAlignment="Center" Margin="0,20,0,0" FontWeight="Bold" Foreground="Red"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,0">
                         <Button x:Name="btnEditar" Content="Editar" Width="120" Margin="5" CommandParameter="editarHabilitado" Click="btnEditar_Click"/>

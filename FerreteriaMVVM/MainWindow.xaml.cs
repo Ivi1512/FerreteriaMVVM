@@ -25,23 +25,29 @@ namespace FerreteriaMVVM
         {
             InitializeComponent();
             DataContext = new MainViewModel();
+            HabilitarControles("Bienvenida");
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
-            switch (((Button)sender).Name)
+            HabilitarControles(((Button)sender).Content.ToString());
+        }
+
+        private void HabilitarControles(string Ventana)
+        {
+            switch (Ventana)
             {
-                case "BtnBienvenida":
+                case "Bienvenida":
                     BtnBienvenida.IsEnabled = false;
                     BtnProveedores.IsEnabled = true;
                     BtnProductos.IsEnabled = true;
                     break;
-                case "BtnProveedores":
+                case "Proveedores":
                     BtnBienvenida.IsEnabled = true;
                     BtnProveedores.IsEnabled = false;
                     BtnProductos.IsEnabled = true;
                     break;
-                case "BtnProductos":
+                case "Productos":
                     BtnBienvenida.IsEnabled = true;
                     BtnProveedores.IsEnabled = true;
                     BtnProductos.IsEnabled = false;

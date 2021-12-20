@@ -77,6 +77,19 @@ namespace FerreteriaMVVM.Services
                         break;
                     }
                 }
+
+                foreach (ProductosModel producto in listaProductos)
+                {
+                    foreach (ProveedoresModel proveedor in producto.Proveedores)
+                    {
+                        if(proveedor._id.Equals(CurrentProveedor._id))
+                        {
+                            producto.Proveedores.Remove(proveedor);
+                            break;
+                        }
+                    }
+                }
+
                 MessageBox.Show("Proveedor " + CurrentProveedor.Nombre + " borrado correctamente");
                 return true;
             }
@@ -199,6 +212,47 @@ namespace FerreteriaMVVM.Services
             }
         }
         #endregion
+
+
+        public static ObservableCollection<ProductosModel> ActualizarTabla(string palabraFiltro)
+        {
+            try
+            {
+                ObservableCollection<ProductosModel> listaProductosFiltro = new ObservableCollection<ProductosModel>();
+
+                foreach (ProductosModel producto in listaProductos)
+                {
+
+                    if (producto._id.ToLower().Contains(palabraFiltro.ToLower()) ||
+                        producto.Referencia.ToLower().Contains(palabraFiltro.ToLower()) ||
+                        producto.Descripcion.ToLower().Contains(palabraFiltro.ToLower()) ||
+                        producto.Precio.ToString().ToLower().Contains(palabraFiltro.ToLower()) ||
+                        producto.Stock.ToString().ToLower().Contains(palabraFiltro.ToLower()))
+                    {
+                        listaProductosFiltro.Add(producto);
+                    }
+                    else
+                    {
+                        foreach (ProveedoresModel proveedor in producto.Proveedores)
+                        {
+                            if (!listaProductosFiltro.Contains(producto) && proveedor.Nombre.ToLower().Contains(palabraFiltro.ToLower()))
+                            {
+                                listaProductosFiltro.Add(producto);
+                            }
+                        }
+                    }
+
+                }
+
+                return listaProductosFiltro;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error al filtrar la lista: " + e);
+                return listaProductos;
+            }
+            
+        }
 
         public static ObservableCollection<string> GetCategorias()
         {

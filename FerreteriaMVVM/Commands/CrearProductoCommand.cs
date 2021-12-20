@@ -34,7 +34,6 @@ namespace FerreteriaMVVM.Commands
                         if (DBHandler.CrearProductos(((ProductosViewModel)vista.DataContext).CurrentProducto))
                         {
                             vista.E01MostrarProducto();
-                            vista.txtWarning.Visibility = Visibility.Collapsed;
                             vista.edt_codigo_barras.IsEnabled = false;
                         }
                         break;

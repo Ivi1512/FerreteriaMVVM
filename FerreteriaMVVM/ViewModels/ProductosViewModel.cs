@@ -94,10 +94,10 @@ namespace FerreteriaMVVM.ViewModels
         public ICommand LimpiarFormularioProductosCommand { set; get; }
         public ICommand CrearProductoCommand { set; get; }
         public ICommand EditarProductosCommand { set; get; }
-        public ICommand BorrarProductoCommand {set;get;}
-        public ICommand AñadirProveedorAProductoCommand { set;get;}
-        public ICommand CancelarCambiosCommand { set;get;}
-
+        public ICommand BorrarProductoCommand { set; get; }
+        public ICommand AñadirProveedorAProductoCommand { set; get; }
+        public ICommand CancelarCambiosCommand { set; get; }
+        public ICommand FiltrarProductosCommand{set;get;}
         public ProductosViewModel()
         {
             ListaCategorias = DBHandler.GetCategorias();
@@ -110,6 +110,7 @@ namespace FerreteriaMVVM.ViewModels
             BorrarProductoCommand = new BorrarProductoCommand();
             AñadirProveedorAProductoCommand = new AñadirProveedorAProductoCommand(this);
             CancelarCambiosCommand = new CancelarCambiosCommand();
+            FiltrarProductosCommand = new FiltrarTablaProductosCommand(this);
         }
     }
 }
