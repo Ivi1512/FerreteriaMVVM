@@ -21,7 +21,7 @@ namespace FerreteriaMVVM.Commands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             ProductosView vista = (ProductosView)parameter;
 
@@ -31,10 +31,21 @@ namespace FerreteriaMVVM.Commands
                 switch (confirmacion)
                 {
                     case MessageBoxResult.Yes:
-                        if (DBHandler.CrearProductos(((ProductosViewModel)vista.DataContext).CurrentProducto))
+                        RequestModel requestModel = new RequestModel();
+                        requestModel.route = "/products";
+                        requestModel.method = "POST";
+                        requestModel.data = ((ProductosViewModel)vista.DataContext).CurrentProducto;
+
+                        ResponseModel responseModel = await APIHandler.ConsultAPI(requestModel);
+
+                        if (responseModel.resultOK)
                         {
-                            vista.E01MostrarProducto();
-                            vista.edt_codigo_barras.IsEnabled = false;
+                            MessageBox.Show("Se ha creado el estudiante");
+                            ((ProductosViewModel)vista.DataContext).CargarProductosCommand.Execute("");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al crear");
                         }
                         break;
 
@@ -42,10 +53,10 @@ namespace FerreteriaMVVM.Commands
                         break;
                 }
             }
-           
 
+            
         }
-
+        
         public CrearProductoCommand()
         {
             

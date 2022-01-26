@@ -1,4 +1,5 @@
-﻿using FerreteriaMVVM.Services;
+﻿using FerreteriaMVVM.Models;
+using FerreteriaMVVM.Services;
 using FerreteriaMVVM.ViewModels;
 using FerreteriaMVVM.Views;
 using System;
@@ -20,7 +21,7 @@ namespace FerreteriaMVVM.Commands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             ProductosView vista = (ProductosView)parameter;
 
@@ -30,12 +31,20 @@ namespace FerreteriaMVVM.Commands
                 switch (confirmacion)
                 {
                     case MessageBoxResult.Yes:
-                        if (DBHandler.EditarProductos(((ProductosViewModel)vista.DataContext).CurrentProducto))
+                        RequestModel requesModel = new RequestModel();
+                        requesModel.route = "/products";
+                        requesModel.method = "PUT";
+                        requesModel.data = (((ProductosViewModel)vista.DataContext).CurrentProducto);
+                        ResponseModel responseModel = await APIHandler.ConsultAPI(requesModel);
+
+
+                        if (responseModel.resultOK)
                         {
                             vista.E01MostrarProducto();
-                            vista.txtWarning.Visibility = Visibility.Collapsed;
-                            vista.edt_codigo_barras.IsEnabled = false;
+                            ((ProductosViewModel)vista.DataContext).CargarProductosCommand.Execute("");
                         }
+
+                        MessageBox.Show((string)responseModel.data, "Modificar", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
 
                     case MessageBoxResult.No:

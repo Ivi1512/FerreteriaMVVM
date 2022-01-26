@@ -14,7 +14,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding ProductosCommand}" CommandParameter="cargarLista"/>
+            <i:InvokeCommandAction Command="{Binding CargarProductosCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -54,7 +54,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" HorizontalAlignment="Center">
+                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,4,0,233" Grid.RowSpan="2">
                     <ListView x:Name="productosListView" ItemsSource="{Binding ListaProductos}" SelectionChanged="productosListView_SelectionChanged">
 
                         <i:Interaction.Triggers>

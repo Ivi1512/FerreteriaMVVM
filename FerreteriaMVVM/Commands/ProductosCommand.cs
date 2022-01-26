@@ -24,7 +24,7 @@ namespace FerreteriaMVVM.Commands
         {
             if(parameter is string)
             {
-                productosViewModel.ListaProductos = DBHandler.listaProductos;
+                //productosViewModel.ListaProductos = DBHandler.listaProductos;
                 productosViewModel.ListaProveedores = DBHandler.listaProveedores;
             }
             else
