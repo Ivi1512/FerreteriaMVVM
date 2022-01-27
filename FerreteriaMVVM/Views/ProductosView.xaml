@@ -7,6 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:validationRules="clr-namespace:FerreteriaMVVM.Resources.ValidationRules"
              mc:Ignorable="d" 
              x:Name="vistaProductos"
              xmlns:Services="clr-namespace:FerreteriaMVVM.Services"
@@ -49,13 +50,35 @@
                         Command="{Binding FiltrarProductosCommand}" CommandParameter="{Binding ElementName=vistaProductos}"/>
             </Grid>
 
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="edtBuscar" Grid.Column="0"
+                     materialDesign:HintAssist.Hint="Buscar:"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     VerticalAlignment="Center" HorizontalAlignment="Center"
+                     Width="200"
+                     FontSize="16"
+                     materialDesign:TextFieldAssist.HasClearButton="True"/>
+                    <Button Content="Buscar" Grid.Column="1"
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Width="125"
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                        Command="{Binding BuscarProductoCommand}" CommandParameter="{Binding ElementName=vistaProductos}"/>
+                </Grid>
+
+                
+
+
             <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,4,0,233" Grid.RowSpan="2">
-                    <ListView x:Name="productosListView" ItemsSource="{Binding ListaProductos}" SelectionChanged="productosListView_SelectionChanged">
+                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,4,0,50" >
+                    <ListView x:Name="productosListView" ItemsSource="{Binding ListaProductos}" SelectionChanged="productosListView_SelectionChanged" Height="300">
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
@@ -84,7 +107,7 @@
 
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                <StackPanel Grid.Row="2" HorizontalAlignment="Center">
                     <materialDesign:Card Padding="20" Margin="15">
                         <StackPanel>
                             <TextBlock Text="DATOS DEL PROVEEDOR SELECCIONADO" HorizontalAlignment="Center" Margin="15" FontSize="20" FontWeight="DemiBold"/>
@@ -268,11 +291,7 @@
                                      Text="{Binding CurrentProducto.Precio, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
 
-                            <DatePicker x:Name="datePickerFecha" Grid.Column="1" Grid.Row="4"
-                                        Margin="10" Width="200" HorizontalContentAlignment="Left" 
-                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                                        materialDesign:HintAssist.Hint="Fecha de Entrada:"
-                                        FontSize="16"
+                            <DatePicker x:Name="datePickerFecha" Grid.Column="1" Grid.Row="4" Margin="10" Width="200" HorizontalContentAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Fecha de Entrada:" FontSize="16"
                                         SelectedDate="{Binding CurrentProducto.FechaEntrada, StringFormat=dd/MM/yyyy}"
                                         IsEnabled="{Binding ElementName=vistaProductos, Path=EditarActivado}"/>
 

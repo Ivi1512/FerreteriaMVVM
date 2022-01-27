@@ -99,6 +99,7 @@ namespace FerreteriaMVVM.ViewModels
         public ICommand CancelarCambiosCommand { set; get; }
         public ICommand FiltrarProductosCommand{set;get;}
         public ICommand CargarProductosCommand { set; get; }
+        public ICommand BuscarProductoCommand { set; get; }
         public ProductosViewModel()
         {
             ListaCategorias = DBHandler.GetCategorias();
@@ -113,6 +114,7 @@ namespace FerreteriaMVVM.ViewModels
             CancelarCambiosCommand = new CancelarCambiosCommand();
             FiltrarProductosCommand = new FiltrarTablaProductosCommand(this);
             CargarProductosCommand = new CargarProductosCommand(this);
+            BuscarProductoCommand = new BuscarProductoCommand(this);
         }
     }
 }

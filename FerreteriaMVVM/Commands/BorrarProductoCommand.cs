@@ -21,19 +21,27 @@ namespace FerreteriaMVVM.Commands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             ProductosView vista = (ProductosView)parameter;
             MessageBoxResult confirmacion = MessageBox.Show("¿Estas seguro que quieres borrar el producto?", "Confirmación", MessageBoxButton.YesNo);
             switch (confirmacion)
             {
                 case MessageBoxResult.Yes:
-                    if (DBHandler.BorrarProductos(((ProductosViewModel)vista.DataContext).CurrentProducto))
+                    RequestModel requestModel = new RequestModel();
+                    requestModel.route = "/products";
+                    requestModel.method = "DELETE";
+                    requestModel.data = ((ProductosViewModel)vista.DataContext).CurrentProducto._id;
+                    ResponseModel responseModel = await APIHandler.ConsultAPI(requestModel);
+
+                    if (responseModel.resultOK)
                     {
-                        ((ProductosViewModel)vista.DataContext).CurrentProducto = new ProductosModel();
-                        vista.E00EstadoInicial();
-                        vista.txtWarning.Visibility = Visibility.Collapsed;
+                        ((ProductosViewModel)vista.DataContext).CargarProductosCommand.Execute("");
+                        vista.productosListView.SelectedIndex = 0;
                     }
+
+                    MessageBox.Show((string)responseModel.data);
+
                     break;
 
                 case MessageBoxResult.No:

@@ -40,8 +40,10 @@ namespace FerreteriaMVVM.Commands
 
                         if (responseModel.resultOK)
                         {
-                            MessageBox.Show("Se ha creado el estudiante");
+                            MessageBox.Show("Se ha creado el producto");
                             ((ProductosViewModel)vista.DataContext).CargarProductosCommand.Execute("");
+                            vista.E01MostrarProducto();
+                            
                         }
                         else
                         {

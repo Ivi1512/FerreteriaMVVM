@@ -26,6 +26,8 @@ namespace FerreteriaMVVM.Commands
             ((ProductosViewModel)vista.DataContext).CurrentProducto = new ProductosModel();
             vista.E00EstadoInicial();
             vista.edt_codigo_barras.IsEnabled = true;
+            //vista.btnNuevoProveedor.IsEnabled = true;
+
         }
 
         public LimpiarFormularioProductosCommand()

@@ -91,6 +91,7 @@
     <Compile Include="Commands\AñadirProveedorAProductoCommand.cs" />
     <Compile Include="Commands\BorrarProductoCommand.cs" />
     <Compile Include="Commands\BorrarProveedorCommand.cs" />
+    <Compile Include="Commands\BuscarProductoCommand.cs" />
     <Compile Include="Commands\CancelarCambiosCommand.cs" />
     <Compile Include="Commands\CargarProductosCommand.cs" />
     <Compile Include="Commands\CrearProductoCommand.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Models\ProveedoresModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Resources\ValidationRules\MyValidationRule.cs" />
     <Compile Include="Services\APIHandler.cs" />
     <Compile Include="Services\DBHandler.cs" />
     <Compile Include="Services\Validation.cs" />

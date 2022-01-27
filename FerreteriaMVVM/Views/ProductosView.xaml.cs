@@ -82,6 +82,8 @@ namespace FerreteriaMVVM.Views
             btnBorrar.Visibility = Visibility.Collapsed;
             comboProveedores.IsEnabled = false;
             edt_codigo_barras.IsEnabled = true;
+            btnNuevoProveedor.IsEnabled = true;
+            
             EditarActivado = true;
         }
 
